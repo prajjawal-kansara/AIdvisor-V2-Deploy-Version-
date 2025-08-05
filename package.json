@@ -1,0 +1,28 @@
+{
+    "name": "ai-recommender-v2",
+    "version": "1.0.0",
+    "description": "AI Tool Discovery Platform - Powered by Gemini AI",
+    "main": "index.js",
+    "scripts": {
+        "build": "echo 'No build step needed for static site'",
+        "start": "node server.js"
+    },
+    "keywords": [
+        "ai",
+        "tools",
+        "discovery",
+        "gemini",
+        "recommendations"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "@google/generative-ai": "^0.21.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.2"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
