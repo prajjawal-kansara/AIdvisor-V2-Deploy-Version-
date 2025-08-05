@@ -14,7 +14,7 @@ export default function handler(req, res) {
 
   res.json({ 
     success: true, 
-    message: 'AI Tools Discovery Platform - Powered by Gemini AI',
+    message: 'AI Tools Discovery Platform',
     timestamp: new Date().toISOString(),
     version: '3.0.0'
   });
