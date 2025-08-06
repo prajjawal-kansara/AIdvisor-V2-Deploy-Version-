@@ -710,7 +710,14 @@
                     if (data.success) {
                         setRecommendations(data);
                     } else {
-                        setError(data.error || 'Failed to get recommendations');
+                        // Handle specific quota errors with user-friendly messages
+                        if (data.error && data.error.includes('quota exceeded')) {
+                            setError('API quota exceeded. Please upgrade to a paid plan or try again tomorrow. Visit https://ai.google.dev/gemini-api/docs/rate-limits for more information.');
+                        } else if (data.error && data.error.includes('Too many requests')) {
+                            setError('Too many requests. Please wait a moment before trying again.');
+                        } else {
+                            setError(data.error || 'Failed to get recommendations');
+                        }
                     }
                 } catch (error) {
                     setError('Network error. Please check your connection and try again.');
@@ -824,19 +831,54 @@
                                 {/* Error Display */}
                                 {error && (
                                     <div className="glass-strong rounded-2xl p-6 border border-red-500/30 slide-in">
-                                        <div className="flex flex-col items-center text-red-100 text-center">
+                                        <div className="flex flex-col items-center text-center">
                                             <div className="gradient-bg-alt p-3 rounded-lg mb-4">
                                                 <i className="fas fa-exclamation-triangle text-2xl"></i>
                                             </div>
-                                            <h3 className="font-bold text-lg mb-2">Error</h3>
-                                            <p className="mb-4">{error}</p>
-                                            <button
-                                                onClick={testConnection}
-                                                className="gradient-bg px-4 py-2 rounded-lg text-white text-sm font-medium hover:opacity-90 transition-opacity"
-                                            >
-                                                <i className="fas fa-sync-alt mr-2"></i>
-                                                Retry
-                                            </button>
+                                            <h3 className="font-bold text-lg mb-2 text-red-100">Error</h3>
+                                            <p className="mb-4 text-red-100">{error}</p>
+                                            
+                                            {/* Additional help for quota errors */}
+                                            {error.includes('quota exceeded') && (
+                                                <div className="bg-blue-500/20 border border-blue-500/30 rounded-lg p-4 mb-4 text-blue-100">
+                                                    <h4 className="font-semibold mb-2">💡 Quick Solutions:</h4>
+                                                    <ul className="text-sm space-y-1">
+                                                        <li>• <strong>Upgrade to paid plan:</strong> Remove daily limits</li>
+                                                        <li>• <strong>Wait until tomorrow:</strong> Free tier resets daily</li>
+                                                        <li>• <strong>Try the health check:</strong> Test if API is working</li>
+                                                    </ul>
+                                                </div>
+                                            )}
+                                            
+                                            {/* Show different actions based on error type */}
+                                            {error.includes('quota exceeded') ? (
+                                                <div className="space-y-3">
+                                                    <a
+                                                        href="https://ai.google.dev/gemini-api/docs/rate-limits"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="gradient-bg px-4 py-2 rounded-lg text-white text-sm font-medium hover:opacity-90 transition-opacity inline-block"
+                                                    >
+                                                        <i className="fas fa-external-link-alt mr-2"></i>
+                                                        Learn More
+                                                    </a>
+                                                    <button
+                                                        onClick={() => setError('')}
+                                                        className="bg-white/10 px-4 py-2 rounded-lg text-white text-sm font-medium hover:bg-white/20 transition-opacity ml-2"
+                                                    >
+                                                        <i className="fas fa-times mr-2"></i>
+                                                        Dismiss
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <button
+                                                    onClick={testConnection}
+                                                    className="gradient-bg px-4 py-2 rounded-lg text-white text-sm font-medium hover:opacity-90 transition-opacity"
+                                                >
+                                                    <i className="fas fa-sync-alt mr-2"></i>
+                                                    Retry
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 )}

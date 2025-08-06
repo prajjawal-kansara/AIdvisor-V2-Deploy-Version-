@@ -4,7 +4,7 @@ A powerful AI-powered platform for discovering and recommending the best AI tool
 
 ## 🚀 Live Demo
 
-**Production URL**: https://ai-recommender-v2-3kk0b9htr-prajjawal-kansaras-projects.vercel.app
+**Production URL**: https://ai-recommender-v2-c5loyyc1t-prajjawal-kansaras-projects.vercel.app/
 
 ## ✨ Features
 
@@ -193,7 +193,17 @@ ai-recommender-V2/
    - Verify your `GEMINI_API_KEY` is set in Vercel
    - Check if the API key is valid
 
-3. **CORS errors**
+3. **"API quota exceeded" error**
+   - **Free Tier Limit**: Google Gemini API free tier allows only 50 requests per day
+   - **Solution**: Upgrade to a paid plan at [Google AI Studio](https://aistudio.google.com/)
+   - **Cost**: Starts at $0.00025 per 1K characters
+   - **Alternative**: Wait until the next day for quota reset
+
+4. **"Too many requests" error**
+   - The API includes rate limiting (10 requests per minute)
+   - Wait a moment before making another request
+
+5. **CORS errors**
    - The API includes CORS headers for all origins
    - If issues persist, check your browser's CORS settings
 
@@ -201,5 +211,22 @@ ai-recommender-V2/
 
 Make sure these are set in your Vercel dashboard:
 - `GEMINI_API_KEY`: Your Google AI Studio API key
+
+### Quota Management
+
+**Free Tier Limits:**
+- 50 requests per day
+- 10 requests per minute (rate limiting)
+
+**Paid Tier Benefits:**
+- No daily quota limits
+- Higher rate limits
+- Priority support
+
+**To upgrade to paid tier:**
+1. Go to [Google AI Studio](https://aistudio.google.com/)
+2. Click on "Get API key" or go to API keys section
+3. Upgrade to a paid plan
+4. Update your API key in Vercel dashboard
 
 ---
